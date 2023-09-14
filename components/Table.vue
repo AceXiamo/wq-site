@@ -8,7 +8,6 @@
         :columns="columns"
         :rows="data.items"
         :loading="loading"
-        @select="select"
         :loading-state="{
           icon: 'i-heroicons-arrow-path-20-solid',
           label: 'Loading...',
@@ -20,7 +19,7 @@
         <template #actions-data="{ row }">
           <div class="flex gap-[10px]">
             <UButton size="xs" variant="soft">下载</UButton>
-            <UButton size="xs" color="blue" variant="soft">预览</UButton>
+            <UButton size="xs" color="blue" variant="soft" @click="view(row)">预览</UButton>
 
             <UPopover>
               <UButton size="xs" color="red" variant="soft">删除</UButton>
@@ -44,43 +43,25 @@
       <UPagination v-model="page" :page-count="10" :total="data.size || 0" />
     </div>
 
-    <div class="bg-white w-max">
-      <video id="videoElement" class="w-[500px]" controls></video>
-    </div>
+    <ClientOnly>
+      <VideoModal ref="videoModal"></VideoModal>
+    </ClientOnly>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { RecordsResult, records } from "@/api/live";
-import mpegts from "mpegts.js";
+import { RecordsResult, Record,  records } from "@/api/live";
 
 const regex = /\[(.*?)\]/g;
+const videoModal = ref()
 
 onMounted(() => {
   loadData();
-  if (mpegts.getFeatureList().mseLivePlayback) {
-    let videoElement: any = document.getElementById("videoElement");
-    let player = mpegts.createPlayer({
-      type: "flv", // could also be mpegts, m2ts, flv
-      isLive: false,
-      url: "https://file.qwq.link/wq/live/[2023-09-13 20:57:19.flv~2023-09-13 23:11:19.flv] [⭐小猫又活了一天⭐].flv",
-    });
-    player.attachMediaElement(videoElement);
-    player.load();
-    player.play();
-  }
 });
-
-type Item = {
-  id: number;
-  title: string;
-  begin: string;
-  end: string;
-};
 
 const loading = ref<boolean>(true);
 const page = ref(1);
-const selected = ref<Item[]>([]);
+const selected = ref<Record[]>([]);
 const data = ref<RecordsResult>({});
 const his = ref<string[]>([]);
 
@@ -105,15 +86,6 @@ const columns = [
     key: "actions",
   },
 ];
-
-function select(row: Item) {
-  const index = selected.value.findIndex((item: Item) => item.id === row.id);
-  if (index === -1) {
-    selected.value.push(row);
-  } else {
-    selected.value.splice(index, 1);
-  }
-}
 
 const loadData = () => {
   loading.value = true;
@@ -150,4 +122,8 @@ watch(page, (val, oldVal) => {
   }
   loadData();
 });
+
+const view = (row: Record) => {
+  videoModal.value.show(row)
+};
 </script>

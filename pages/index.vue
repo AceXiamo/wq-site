@@ -15,9 +15,7 @@
         </UCard>
         <Disk></Disk>
       </div>
-      <ClientOnly>
-        <Table class="flex-auto"></Table>
-      </ClientOnly>
+      <Table class="flex-auto"></Table>
     </div>
   </div>
 </template>
