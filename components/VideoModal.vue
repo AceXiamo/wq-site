@@ -23,14 +23,10 @@
             <div class="text-[12px] text-gray-500 w-[40px]">Begin:</div>
             <span class="text-[12px] text-gray-500">{{ begin }}</span>
           </div>
-          <div class="flex items-end">
-            <div class="text-[12px] text-gray-500 w-[40px]">End:</div>
-            <span class="text-[12px] text-gray-500">{{ end }}</span>
-          </div>
         </div>
       </template>
       <div class="w-full aspect-[500/281.25]">
-        <video id="videoElement" class="w-full h-full" controls></video>
+        <video id="videoElement" class="w-full h-full"></video>
       </div>
       <template #footer>
         <!-- Content -->

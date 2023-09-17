@@ -1,8 +1,6 @@
 <template>
   <div class="flex flex-col gap-[20px]">
-    <div
-      class="bg-[#F3F4F6] bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-20 rounded-md"
-    >
+    <div class="bg-[#F3F4F6] bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-20 rounded-md">
       <UTable
         v-model="selected"
         :columns="columns"
@@ -20,27 +18,12 @@
           <div class="flex gap-[10px]">
             <UButton size="xs" variant="soft">下载</UButton>
             <UButton size="xs" color="blue" variant="soft" @click="view(row)">预览</UButton>
-
-            <UPopover>
-              <UButton size="xs" color="red" variant="soft">删除</UButton>
-              <template #panel>
-                <div class="w-[200px] p-[10px]">
-                  <div class="flex gap-[5px] text-[13px] items-center">
-                    <UIcon name="i-heroicons-question-mark-circle" />
-                    <span>确认删除?</span>
-                  </div>
-                  <div class="flex justify-end mt-[10px]">
-                    <UButton size="xs" color="red">确 认</UButton>
-                  </div>
-                </div>
-              </template>
-            </UPopover>
           </div>
         </template>
       </UTable>
     </div>
     <div class="flex justify-start">
-      <UPagination v-model="page" :page-count="10" :total="data.size || 0" />
+      <UPagination v-model="page" :page-count="pageNum" :total="data.size || 0" />
     </div>
 
     <ClientOnly>
@@ -50,80 +33,75 @@
 </template>
 
 <script lang="ts" setup>
-import { RecordsResult, Record,  records } from "@/api/live";
-
-const regex = /\[(.*?)\]/g;
+import { Record, RecordRes } from '~/server/api/cos/records.post'
 const videoModal = ref()
 
 onMounted(() => {
-  loadData();
-});
+  loadData()
+})
 
-const loading = ref<boolean>(true);
-const page = ref(1);
-const selected = ref<Record[]>([]);
-const data = ref<RecordsResult>({});
-const his = ref<string[]>([]);
+const loading = ref<boolean>(true)
+const page = ref(1)
+const selected = ref<Record[]>([])
+const data = ref<RecordRes>({})
+const his = ref<string[]>([])
+const number = ref<number>(0)
+const pageNum = 10
+let lastFlag = true
 
 const columns = [
   {
-    key: "title",
-    label: "Title",
+    key: 'title',
+    label: '✨ Title',
   },
   {
-    key: "begin",
-    label: "Live Begin Time",
+    key: 'begin',
+    label: '⏰ Live Begin Time',
   },
   {
-    key: "end",
-    label: "Live End Time",
+    key: 'size',
+    label: 'Size',
   },
   {
-    key: "size",
-    label: "Size",
+    key: 'actions',
   },
-  {
-    key: "actions",
-  },
-];
+]
 
 const loadData = () => {
-  loading.value = true;
-  records(his.value[his.value.length - 1])
+  loading.value = true
+  let params: { next?: string } = {}
+  if (his.value) params.next = his.value[his.value.length - 1]
+  useFetch('/api/cos/records', {
+    method: 'post',
+    params: params,
+  })
     .then((res) => {
-      data.value = res.data.value;
-      data.value.items?.forEach((item) => {
-        item.begin = "-";
-        item.end = "-";
-        item.title = "-";
-
-        const match = item.key?.match(regex);
-        if (match) {
-          const [begin, end] = match[0].replace(/\[|\]/g, "").split("~");
-          item.begin = begin;
-          item.end = end;
-          item.title = match[1].replace(/\[|\]/g, "");
-        }
-      });
-      data.value.has && his.value.push(data.value.next!);
+      data.value = res.data.value!
+      if (!lastFlag) {
+        number.value += data.value.items?.length || 0
+      } else {
+        his.value.push(data.value.next!)
+      }
     })
     .finally(() => {
-      loading.value = false;
-    });
-};
+      loading.value = false
+    })
+}
 
 const byte2GB = (byte: number) => {
-  return (byte / 1024 / 1024 / 1024).toFixed(2) + "GB";
-};
+  return (byte / 1024 / 1024 / 1024).toFixed(2) + 'GB'
+}
 
 watch(page, (val, oldVal) => {
-  if (val < oldVal) {
-    his.value.pop();
+  lastFlag = val < oldVal
+  if (lastFlag) {
+    number.value -= pageNum
+    his.value.pop()
   }
-  loadData();
-});
+  loadData()
+})
 
 const view = (row: Record) => {
   videoModal.value.show(row)
-};
+}
 </script>
