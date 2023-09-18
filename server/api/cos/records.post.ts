@@ -1,17 +1,16 @@
 import COS, { COSOptions, GetBucketParams, GetBucketResult } from 'cos-nodejs-sdk-v5'
-import dayjs from './../../../node_modules/dayjs/esm/index';
 
 const options: COSOptions = {
-  SecretId: '',
-  SecretKey: '',
+  SecretId: process.env.COS_SECRET_ID || '',
+  SecretKey: process.env.COS_SECRET_KEY || '',
 }
 
 const cos = new COS(options)
 const getFiles = (next?: string): Promise<GetBucketResult> => {
   return new Promise((resolve, reject) => {
     let opts: GetBucketParams = {
-      Bucket: '',
-      Region: '',
+      Bucket: process.env.COS_BUCKET || '',
+      Region: process.env.COS_REGION || '',
       Prefix: 'wq/live/',
       Delimiter: '/',
       MaxKeys: 10,
