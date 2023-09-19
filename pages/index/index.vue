@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col p-[20px] gap-[20px] min-h-screen">
     <div class="flex gap-[20px] items-center">
-      <span>🍂</span>
+      <WQAvatar />
       <div class="ml-auto">
-        <ColorMode></ColorMode>
+        <ColorMode />
       </div>
     </div>
 
@@ -11,18 +11,24 @@
     <div class="flex gap-[20px] flex-auto">
       <div class="w-max">
         <UCard>
-          <Nav></Nav>
+          <Nav :liveRecCount="table?.data.size" />
         </UCard>
-        <Disk></Disk>
+        <Disk />
       </div>
-      <Table class="flex-auto"></Table>
+      <Table class="flex-auto" ref="table" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import WQAvatar from "./components/WQAvatar.vue";
+import ColorMode from "./components/ColorMode.vue";
+import Nav from "./components/Nav.vue";
+import Disk from "./components/Disk.vue";
+import Table from "./components/Table.vue";
 import Wave from "@/assets/js/wave";
 
+const table = ref()
 onMounted(() => {
   const wave = new Wave("body", {
     number: 2,

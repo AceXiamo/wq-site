@@ -36,41 +36,40 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
-import mpegts from 'mpegts.js'
-import { Record } from "@/api/live";
+import { ref, onMounted } from "vue";
+import mpegts from "mpegts.js";
+import { Record } from "~/server/api/cos/records.post";
 
-const modalShow = ref<boolean>(false)
-const title = ref<string>('')
-const begin = ref<string>('')
-const end = ref<string>('')
+const modalShow = ref<boolean>(false);
+const title = ref<string>("");
+const begin = ref<string>("");
+const end = ref<string>("");
 
-const host = 'https://file.qwq.link/'
+const host = "https://file.qwq.link/";
 const show = (row: Record) => {
-  modalShow.value = true
-  title.value = row.title!
-  begin.value = row.begin!
-  end.value = row.end!
+  modalShow.value = true;
+  title.value = row.title!;
+  begin.value = row.begin!;
 
   nextTick(() => {
     if (mpegts.getFeatureList().mseLivePlayback) {
-      let videoElement: any = document.querySelector('#videoElement')
+      let videoElement: any = document.querySelector("#videoElement");
       let player = mpegts.createPlayer({
-        type: 'flv', // could also be mpegts, m2ts, flv
+        type: "flv", // could also be mpegts, m2ts, flv
         isLive: false,
         url: host + row.key,
-      })
+      });
 
-      player.attachMediaElement(videoElement)
-      player.load()
-      player.play()
+      player.attachMediaElement(videoElement);
+      player.load();
+      player.play();
     }
-  })
-}
+  });
+};
 
 defineExpose({
   show,
-})
+});
 </script>
 
 <style>

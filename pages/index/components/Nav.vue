@@ -3,14 +3,23 @@
 </template>
 
 <script lang="ts" setup>
-const links = [
+const props = withDefaults(
+  defineProps<{
+    liveRecCount?: number;
+  }>(),
+  {
+    liveRecCount: 0,
+  }
+);
+
+const links = ref([
   {
     label: "Live Record",
     avatar: {
-      src: "https://axm.moe/avatar",
+      src: "",
     },
-    badge: 100,
-    to: "https://axm.moe"
+    badge: 0,
+    to: "https://axm.moe",
   },
   {
     label: "Installation",
@@ -24,5 +33,9 @@ const links = [
     label: "Command Palette",
     icon: "i-heroicons-command-line",
   },
-];
+]);
+
+watchEffect(() => {
+  links.value[0].badge = props.liveRecCount;
+})
 </script>
