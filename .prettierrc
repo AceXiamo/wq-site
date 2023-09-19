@@ -4,5 +4,6 @@
   "useTabs": false,
   "semi": true,
   "singleQuote": false,
-  "quoteProps": "as-needed"
+  "quoteProps": "as-needed",
+  "arrowParens": "avoid"
 }
