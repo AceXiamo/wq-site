@@ -14,28 +14,26 @@ const props = withDefaults(
 
 const links = ref([
   {
-    label: "Live Record",
-    avatar: {
-      src: "",
-    },
-    badge: 0,
-    to: "https://axm.moe",
-  },
-  {
-    label: "Installation",
+    label: "动态",
     icon: "i-heroicons-home",
   },
   {
-    label: "Vertical Navigation",
+    label: "直播回放",
+    icon: 'i-heroicons-play-circle',
+    badge: 0,
+    to: "",
+  },
+  {
+    label: "Another 1.",
     icon: "i-heroicons-chart-bar",
   },
   {
-    label: "Command Palette",
+    label: "Another 2.",
     icon: "i-heroicons-command-line",
   },
 ]);
 
 watchEffect(() => {
-  links.value[0].badge = props.liveRecCount;
+  links.value[1].badge = props.liveRecCount;
 })
 </script>
