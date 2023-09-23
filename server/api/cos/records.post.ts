@@ -11,7 +11,7 @@ const options: COSOptions = {
 
 const cos = new COS(options);
 const getFiles = (next?: string): Promise<GetBucketResult> => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const opts: GetBucketParams = {
       Bucket: process.env.COS_BUCKET || "",
       Region: process.env.COS_REGION || "",
@@ -30,14 +30,14 @@ const getFiles = (next?: string): Promise<GetBucketResult> => {
 
 let fileNums: number | null = null;
 const getAllFileNum = (): Promise<number> => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     if (fileNums) {
       resolve(fileNums);
     } else {
       cos.getBucket(
         {
-          Bucket: "xiamo-1256935307",
-          Region: "ap-hongkong",
+          Bucket: process.env.COS_BUCKET || "",
+          Region: process.env.COS_REGION || "",
           Prefix: "wq/live/",
           Delimiter: "/",
           MaxKeys: 1000,
@@ -48,6 +48,21 @@ const getAllFileNum = (): Promise<number> => {
         }
       );
     }
+  });
+};
+
+const getFilesWithPrefix = (prefix?: string): Promise<GetBucketResult> => {
+  return new Promise(resolve => {
+    const opts: GetBucketParams = {
+      Bucket: process.env.COS_BUCKET || "",
+      Region: process.env.COS_REGION || "",
+      Prefix: "wq/live/" + prefix,
+      Delimiter: "/",
+      MaxKeys: 1000,
+    };
+    cos.getBucket(opts, function (_, data) {
+      resolve(data);
+    });
   });
 };
 
@@ -65,13 +80,14 @@ export type Record = {
 };
 
 const regex = /\[(.*?)\]/g;
-export default defineEventHandler(async (event) => {
-  const query: { next: string } = getQuery(event);
-  const cosr = await getFiles(query.next);
+
+export default defineEventHandler(async event => {
+  const query: { prefix: string } = getQuery(event);
+  const cosr = await getFilesWithPrefix(query.prefix);
   const result = {
     size: await getAllFileNum(),
     next: cosr.NextMarker,
-    items: cosr.Contents.map((v) => {
+    items: cosr.Contents.map(v => {
       return {
         key: v.Key,
         size: Number(v.Size),
@@ -80,7 +96,7 @@ export default defineEventHandler(async (event) => {
       };
     }),
   };
-  result.items.forEach((item) => {
+  result.items.forEach(item => {
     const match = item.key?.match(regex);
     if (match) {
       const begin = match[0].replace(/\[|\]/g, "");
