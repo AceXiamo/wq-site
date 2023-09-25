@@ -1,5 +1,8 @@
 import { GetBucketParams, GetBucketResult } from "cos-nodejs-sdk-v5";
 import getCos from "~/server/cos";
+import dayjs from "dayjs";
+import CustomParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(CustomParseFormat);
 
 const getFiles = (next?: string): Promise<GetBucketResult> => {
   return new Promise(resolve => {
@@ -91,7 +94,9 @@ export default defineEventHandler(async event => {
     const match = item.key?.match(regex);
     if (match) {
       const begin = match[0].replace(/\[|\]/g, "");
-      item.begin = begin.replace(/_/g, ":");
+      item.begin = dayjs(begin, "YYYY-MM-DD_HH_mm_ss").format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
       item.title = match[1].replace(/\[|\]/g, "");
     }
   });
