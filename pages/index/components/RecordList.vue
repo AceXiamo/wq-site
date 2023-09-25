@@ -3,7 +3,7 @@
     id="list-container"
     class="flex flex-col w-[600px] gap-[20px] flex-none h-full overflow-y-auto hide-scroll snap-y relative"
   >
-    <div class="flex flex-col h-max rounded pb-[10px]">
+    <div class="flex flex-col h-max rounded pb-[10px]" v-auto-animate>
       <div
         :class="[
           `flex items-center text-[14px] gap-[10px] px-[10px] border-b border-b-gray-100 py-[10px] relative snap-start`,
@@ -17,10 +17,10 @@
       >
         <div
           :class="[
-            `h-full aspect-[500/281.25] dark:bg-white bg-black bg-opacity-[.15] relative`,
-            ` opacity-100 rounded-md`,
+            `h-full aspect-[500/281.25] relative`,
+            ` opacity-100 rounded-sm`,
             `after:bg-[url(https://image.qwq.link/images/2023/08/30/twitter_jiuyesang_20230829-132638_1696514699440066932_photo.jpg)] after:bg-cover`,
-            `after:content-[''] after:absolute after:left-[2px] after:top-[2px] after:bottom-[2px] after:right-[2px] after:rounded-md`,
+            `after:content-[''] after:absolute after:left-[2px] after:top-[2px] after:bottom-[2px] after:right-[2px] after:rounded-sm`,
           ]"
         ></div>
         <div class="flex flex-col gap-[5px]">
@@ -105,19 +105,5 @@ const download = (row: Record) => {
   a.href = url;
   a.download = url;
   a.click();
-};
-
-const hover = async (e: MouseEvent, row: Record) => {
-  const target = e.target as HTMLElement;
-  VideoCover.showCover({
-    // url: FILE_DOMAIN + row.key!,
-    url: `https://file.qwq.link/video/twitter_%E3%82%90%E3%81%9F%E3%81%BF%20%EF%BC%8F%20itami%28%40itami_gomi%29_20230911-145840_1701248900055638104_video_1.mp4`,
-    target,
-  });
-  // VideoCover.getCover(
-  //   "https://file.qwq.link/video/twitter_%E3%82%90%E3%81%9F%E3%81%BF%20%EF%BC%8F%20itami%28%40itami_gomi%29_20230911-145840_1701248900055638104_video_1.mp4"
-  // ).then(res => {
-  //   console.log(res);
-  // });
 };
 </script>

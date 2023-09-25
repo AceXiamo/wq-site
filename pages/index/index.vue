@@ -7,11 +7,17 @@
         <ColorMode />
       </div>
     </div>
-    <div class="flex flex-auto h-0 gap-[50px]">
-      <div class="flex-1"></div>
+    <div class="flex flex-auto h-0 gap-[20px]">
+      <div
+        class="flex-1 dark:bg-slate-800 bg-slate-100 dark:bg-opacity-20 grid place-content-center rounded-md"
+      >
+        <div class="gap-[10px] flex flex-col">
+          <span class="text-[13px] text-gray-500">待定...</span>
+        </div>
+      </div>
       <RecordList></RecordList>
       <div class="flex-1">
-        <Calendar />
+        <!-- <Calendar /> -->
       </div>
     </div>
   </div>
@@ -19,7 +25,6 @@
 
 <script setup lang="ts">
 import WQAvatar from "./components/WQAvatar.vue";
-import ColorMode from "./components/ColorMode.vue";
 import Calendar from "./components/Calendar.vue";
 import Wave from "@/assets/js/wave";
 import RecordList from "./components/RecordList.vue";
@@ -38,5 +43,4 @@ onMounted(() => {
   });
   wave.animate();
 });
-
 </script>
