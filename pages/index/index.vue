@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import WQAvatar from "./components/WQAvatar.vue";
 import Calendar from "./components/Calendar.vue";
-import Wave from "@/assets/js/wave";
+import Wave from "@/utils/wave"
 import RecordList from "./components/RecordList.vue";
 
 onMounted(() => {
