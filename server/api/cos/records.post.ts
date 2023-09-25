@@ -1,15 +1,6 @@
-import COS, {
-  COSOptions,
-  GetBucketParams,
-  GetBucketResult,
-} from "cos-nodejs-sdk-v5";
+import { GetBucketParams, GetBucketResult } from "cos-nodejs-sdk-v5";
+import getCos from "~/server/cos";
 
-const options: COSOptions = {
-  SecretId: process.env.COS_SECRET_ID || "",
-  SecretKey: process.env.COS_SECRET_KEY || "",
-};
-
-const cos = new COS(options);
 const getFiles = (next?: string): Promise<GetBucketResult> => {
   return new Promise(resolve => {
     const opts: GetBucketParams = {
@@ -22,7 +13,7 @@ const getFiles = (next?: string): Promise<GetBucketResult> => {
     if (next) {
       opts.Marker = next;
     }
-    cos.getBucket(opts, function (_, data) {
+    getCos().getBucket(opts, function (_, data) {
       resolve(data);
     });
   });
@@ -34,7 +25,7 @@ const getAllFileNum = (): Promise<number> => {
     if (fileNums) {
       resolve(fileNums);
     } else {
-      cos.getBucket(
+      getCos().getBucket(
         {
           Bucket: process.env.COS_BUCKET || "",
           Region: process.env.COS_REGION || "",
@@ -60,7 +51,7 @@ const getFilesWithPrefix = (prefix?: string): Promise<GetBucketResult> => {
       Delimiter: "/",
       MaxKeys: 1000,
     };
-    cos.getBucket(opts, function (_, data) {
+    getCos().getBucket(opts, function (_, data) {
       resolve(data);
     });
   });
