@@ -1,7 +1,7 @@
 <template>
   <div
     :class="className"
-    class="absolute top-0 bottom-0 left-0 right-0 grid place-content-center z-10"
+    class="container"
     :style="{ backgroundColor: 'rgba(0,0,0,.1)' }"
   >
     <i class="i-heroicons-arrow-path-20-solid animate-spin text-[30px]" />
@@ -15,7 +15,7 @@ const props = defineProps<{
 }>();
 
 const close = () => {
-  props.close()
+  props.close();
 };
 
 defineExpose({
@@ -30,6 +30,17 @@ defineExpose({
 
 .hide-ani {
   animation: hide 0.3s linear forwards;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  place-content: center;
+  z-index: 10;
 }
 
 @keyframes show {
