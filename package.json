@@ -16,8 +16,11 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
     "@nuxt/ui": "^2.8.1",
+    "@pinia/nuxt": "^0.4.11",
+    "@vueuse/motion": "^2.0.0",
     "cos-nodejs-sdk-v5": "^2.12.4",
     "dayjs": "^1.11.9",
-    "mpegts.js": "^1.7.3"
+    "mpegts.js": "^1.7.3",
+    "pinia": "^2.1.6"
   }
 }
