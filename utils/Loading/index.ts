@@ -4,6 +4,7 @@ import Loading from "@/utils/Loading/Loading.vue";
 const show = (options: {
   isFull?: boolean;
   element?: string;
+  hasBg?: boolean;
 }): {
   close: () => void;
 } => {
@@ -18,8 +19,8 @@ const show = (options: {
     close: () => {
       div.remove();
     },
+    hasBg: options.hasBg,
   });
-  console.log(vNode);
   vNode.appContext = useNuxtApp().vueApp._context;
   render(vNode, div);
 

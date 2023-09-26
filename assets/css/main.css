@@ -2,14 +2,14 @@
   --color: #ebf4f1;
   --color-primary: #41b38a;
   --color-secondary: #fdf9f3;
-  --bg: #000;
+  --bg: #0A0C18;
   --bg-secondary: #071521;
   --border-color: #0d2538;
 }
 .light {
   --color: #433422;
   --color-secondary: #504231;
-  --bg: #fff;
+  --bg: #D0DADA;
   --bg-secondary: #eae0c9;
   --border-color: #ded0bf;
 }

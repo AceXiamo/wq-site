@@ -2,7 +2,7 @@
   <div
     :class="className"
     class="container"
-    :style="{ backgroundColor: 'rgba(0,0,0,.1)' }"
+    :style="{ backgroundColor: hasBg ? 'rgba(0,0,0,.1)' : '' }"
   >
     <i class="i-heroicons-arrow-path-20-solid animate-spin text-[30px]" />
   </div>
@@ -10,9 +10,15 @@
 
 <script lang="ts" setup>
 const className = ref("show-ani");
-const props = defineProps<{
-  close: () => void;
-}>();
+const props = withDefaults(
+  defineProps<{
+    hasBg?: boolean;
+    close: () => void;
+  }>(),
+  {
+    hasBg: true,
+  },
+);
 
 const close = () => {
   props.close();
@@ -41,6 +47,7 @@ defineExpose({
   display: grid;
   place-content: center;
   z-index: 10;
+  min-height: 100px;
 }
 
 @keyframes show {
