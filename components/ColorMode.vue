@@ -6,6 +6,7 @@
       variant="ghost"
       aria-label="Theme"
       @click="isDark = !isDark"
+      v-motion="bottomToTop()"
     />
     <template #fallback>
       <div class="w-8 h-8" />
@@ -14,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-const colorMode = useColorMode()
+const colorMode = useColorMode();
 
 const isDark = computed({
   get() {
@@ -25,4 +26,3 @@ const isDark = computed({
   },
 });
 </script>
-

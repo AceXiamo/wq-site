@@ -1,5 +1,8 @@
 <template>
-  <RouterView></RouterView>
+  <NuxtLayout>
+    <RouterView></RouterView>
+  </NuxtLayout>
+  <UNotifications />
 </template>
 
 <script setup lang="ts">

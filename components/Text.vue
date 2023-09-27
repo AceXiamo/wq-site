@@ -4,7 +4,7 @@
     :style="{ gap: `${gap}px`, fontSize: `${size}px` }"
   >
     <div class="translate-y-[2px]" v-if="icon">
-      <i :class="[icon]" />
+      <i :class="icon" />
     </div>
     <span>{{ text }}</span>
   </div>

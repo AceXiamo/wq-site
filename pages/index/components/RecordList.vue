@@ -1,23 +1,4 @@
 <template>
-  <div class="flex gap-[10px] px-[30px] pt-[30px]">
-    <div
-      class="w-[25px] h-[25px] rounded-md bg-emerald-500 grid place-content-center"
-    >
-      <i class="i-heroicons-clock-solid text-[14px] text-white" />
-    </div>
-
-    <div
-      class="px-[5px] h-[25px] rounded-md bg-emerald-500 bg-opacity-20 grid place-content-center"
-    >
-      <span class="text-[14px] text-emerald-500">2023</span>
-    </div>
-
-    <div
-      class="w-[25px] h-[25px] rounded-md bg-emerald-500 bg-opacity-20 grid place-content-center"
-    >
-      <span class="text-[14px] text-emerald-500">09</span>
-    </div>
-  </div>
   <div
     class="flex flex-col min-h-[100px] h-max rounded px-[30px]"
     id="list-container"
@@ -36,12 +17,15 @@
     >
       <div
         :class="[
-          `h-full flex-none aspect-[500/281.25] bg-red-50 relative`,
-          ` opacity-100 rounded-sm`,
-          `after:bg-[url(https://image.qwq.link/images/2023/08/15/twitter_8528co28_20230814-111456_1691045735935180800_photo.jpg)] after:bg-cover`,
-          `after:content-[''] after:absolute after:left-[2px] after:top-[2px] after:bottom-[2px] after:right-[2px] after:rounded-sm`,
+          `h-full flex-none aspect-[500/281.25] bg-cover rounded-md relative`,
+          `opacity-100 rounded-sm`,
+          `border-2 border-gray-300 dark:border-gray-100`,
         ]"
+        :style="{
+          backgroundImage: `url(https://image.qwq.link/images/2023/08/15/twitter_8528co28_20230814-111456_1691045735935180800_photo.jpg)`,
+        }"
       ></div>
+
       <div class="flex flex-col gap-[5px]">
         <span>🎥【 {{ item.title }} 】</span>
         <div class="flex gap-[10px]">
@@ -76,7 +60,7 @@
 import { Record } from "~/server/api/cos/records.post";
 import VideoModal from "./VideoModal.vue";
 import { FILE_DOMAIN } from "~/utils/constants";
-import Loading from "~/utils/Loading";
+import Loading from "~/framework/Loading";
 
 const videoModal = ref();
 const items = ref<Record[]>([]);
@@ -125,3 +109,4 @@ const download = (row: Record) => {
   a.click();
 };
 </script>
+~/components/Loading ~/framework/Loading

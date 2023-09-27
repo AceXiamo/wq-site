@@ -7,12 +7,65 @@
       :title="item.title"
       :icon="item.icon"
       :delay="item.delay"
-      @click="menu.active = item.value"
+      @click="menuClick(item)"
     ></MenuItem>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useMenuStore } from "@/store/menu";
+import { useMenuStore, Menu } from "@/store/menu";
 const menu = useMenuStore();
+const router = useRouter();
+const toast = useToast();
+
+const emojis = [
+  "🌱",
+  "🌲",
+  "🌳",
+  "🌴",
+  "🌵",
+  "🌾",
+  "🌿",
+  "🍀",
+  "🍁",
+  "🍂",
+  "🍃",
+  "🌤",
+  "🌥",
+  "🌦",
+  "🌧",
+  "🌨",
+  "🌩",
+  "🌪",
+  "🌫",
+  "🌬",
+  "🌈",
+  "☀️", 
+  "💐",
+  "🌸",
+  "💮",
+  "🏵",
+  "🌹",
+  "🥀",
+  "🌺",
+  "🌻",
+  "🌼",
+];
+ 
+ 
+
+const menuClick = (item: Menu) => {
+  if (item.url.startsWith("http")) {
+    window.open(item.url, "_blank");
+  } else if (item.url === "dev") {
+    console.log(123)
+    toast.add({
+      title: "🧱 Tip",
+      description: `待定喵. ${emojis[Math.floor(Math.random() * emojis.length)]}`,
+    });
+  } else {
+    menu.active = item.value;
+    router.push(item.url);
+  }
+};
 </script>
