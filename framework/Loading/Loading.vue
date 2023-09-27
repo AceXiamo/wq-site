@@ -1,7 +1,7 @@
 <template>
   <div
     :class="className"
-    class="container"
+    class="absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center z-[10] min-h-[100px]"
     :style="{ backgroundColor: hasBg ? 'rgba(0,0,0,.1)' : '' }"
   >
     <i class="i-heroicons-arrow-path-20-solid animate-spin text-[30px]" />
@@ -36,18 +36,6 @@ defineExpose({
 
 .hide-ani {
   animation: hide 0.3s linear forwards;
-}
-
-.container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: grid;
-  place-content: center;
-  z-index: 10;
-  min-height: 100px;
 }
 
 @keyframes show {

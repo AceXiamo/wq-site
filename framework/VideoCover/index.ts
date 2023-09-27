@@ -1,5 +1,5 @@
 import { h, render } from "vue";
-import VideoCover from "@/utils/VideoCover/VideoCover.vue";
+import VideoCover from "@/framework/VideoCover/VideoCover.vue";
 
 const getCover = (url: string): Promise<string> => {
   return new Promise(resolve => {

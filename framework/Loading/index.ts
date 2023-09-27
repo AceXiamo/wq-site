@@ -1,5 +1,5 @@
 import { h, render } from "vue";
-import Loading from "@/utils/Loading/Loading.vue";
+import Loading from "~/framework/Loading/Loading.vue";
 
 const show = (options: {
   isFull?: boolean;
