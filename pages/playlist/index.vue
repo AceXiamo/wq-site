@@ -132,6 +132,7 @@ const playHandle = (item: Music) => {
     if (item.duration <= 0) {
       item.pause = true;
       item.duration = 0;
+      item.progress = 0;
     }
   };
   player.onPause = () => {
