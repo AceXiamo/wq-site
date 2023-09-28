@@ -12,6 +12,9 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: "",
   },
+  ui: {
+    icons: ['heroicons', 'iconamoon']
+  },
   runtimeConfig: {
     public: {
       motion: {
