@@ -25,7 +25,6 @@ const props = defineProps<{
 const className = ref("show-ani");
 onMounted(() => {
   props.target.onmouseleave = () => {
-    console.log(123);
     className.value = "hide-ani";
     setTimeout(() => {
       props.close();
