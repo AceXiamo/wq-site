@@ -58,7 +58,6 @@ const menuClick = (item: Menu) => {
   if (item.url.startsWith("http")) {
     window.open(item.url, "_blank");
   } else if (item.url === "dev") {
-    console.log(123)
     toast.add({
       title: "🧱 Tip",
       description: `待定喵. ${emojis[Math.floor(Math.random() * emojis.length)]}`,
