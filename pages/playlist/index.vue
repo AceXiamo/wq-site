@@ -9,7 +9,7 @@
       :class="[
         `flex items-center h-[95px] text-[14px] gap-[15px] py-[20px] relative snap-start`,
       ]"
-      v-for="(item, index) in musics"
+      v-for="(item, index) in musicStore.musics"
       :key="index"
     >
       <div
@@ -26,13 +26,13 @@
         ></div>
         <div
           class="absolute top-0 bottom-0 left-0 right-0 bg-black bg-opacity-50 placenc flex justify-center items-center rounded-sm"
-          v-if="item.play"
+          v-if="musicStore.current === item"
           @click="statusHandle(item)"
           v-motion="musicPlay()"
         >
           <i
             class="i-heroicons-play-circle-solid text-[23px] text-white absolute"
-            v-if="item.pause"
+            v-if="musicStore.current.pause"
             v-motion="musicPlay()"
           />
           <i
@@ -51,15 +51,20 @@
       <div class="flex flex-col ml-auto h-full items-end">
         <div
           class="flex items-end gap-[10px]"
-          v-if="item.play"
+          v-if="musicStore.current === item"
           v-motion="musicLine()"
         >
           <span class="text-gray-500 text-[10px]">{{
-            timeFormat(item.duration || 0)
+            timeFormat(musicStore.current.duration || 0)
           }}</span>
         </div>
         <div class="mt-auto">
-          <UButton size="xs" color="blue" variant="soft" @click="play(item)">
+          <UButton
+            size="xs"
+            color="blue"
+            variant="soft"
+            @click="musicStore.play(item)"
+          >
             <i class="i-heroicons-play-circle" />
           </UButton>
         </div>
@@ -71,8 +76,8 @@
         ></div>
         <div
           class="bg-green-500 absolute left-0 h-full flex items-center transition-all duration-10"
-          :style="{ width: `${item.progress}%` }"
-          v-if="item.play"
+          :style="{ width: `${musicStore.current.progress}%` }"
+          v-if="musicStore.current === item"
           v-motion="musicLine()"
         >
           <div
@@ -89,13 +94,14 @@
 import Head from "./components/Head.vue";
 import Loading from "~/framework/Loading";
 import { Music } from "~/server/api/music/list.post";
-import Player from "./components/player";
+import Player from "~/utils/player";
+import { useMusicStore } from "~/store/music";
+
+const musicStore = useMusicStore();
 
 onMounted(() => {
   load();
 });
-
-const musics = ref<Music[]>([]);
 
 const load = () => {
   const loading = Loading.show({
@@ -106,49 +112,11 @@ const load = () => {
     method: "post",
   })
     .then(res => {
-      musics.value = res.data.value || [];
+      musicStore.musics = res.data.value || [];
     })
     .finally(() => {
       loading.close();
     });
-};
-
-const play = (item: Music) => {
-  musics.value.forEach(music => {
-    music.play = false;
-  });
-  item.play = true;
-  playHandle(item);
-};
-
-const player = new Player();
-const playHandle = (item: Music) => {
-  item.duration = 0;
-  item.pause = false;
-  player.init(item.mid!);
-  player.timeUpdate = (currentTime, duration) => {
-    item.progress = (currentTime / duration) * 100;
-    item.duration = duration - currentTime;
-    if (item.duration <= 0) {
-      item.pause = true;
-      item.duration = 0;
-      item.progress = 0;
-    }
-  };
-  player.onPause = () => {
-    item.pause = true;
-  };
-  player.onPlay = () => {
-    item.pause = false;
-  };
-};
-
-const statusHandle = (item: Music) => {
-  if (item.pause) {
-    player.play();
-  } else {
-    player.pause();
-  }
 };
 
 const timeFormat = (duration: number) => {
@@ -158,7 +126,6 @@ const timeFormat = (duration: number) => {
 };
 
 onBeforeRouteLeave(() => {
-  player.destroy();
 });
 </script>
 
