@@ -87,3 +87,14 @@ export const musicLine = () => {
     },
   };
 };
+
+export const hideToShow = () => {
+  return {
+    initial: {
+      opacity: 0,
+    },
+    enter: {
+      opacity: 1,
+    },
+  };
+}
