@@ -2,13 +2,15 @@
   <div class="relative h-screen overflow-auto flex justify-center">
     <div
       :class="[
-        `sticky top-0 w-[300px] mt-[100px] h-[80%] rounded-l-lg p-[40px]`,
+        `sticky top-0 w-[300px] mt-[100px] h-[80%] rounded-l-lg p-[40px] overflow-hidden`,
         `bg-[#EBF2ED]`,
         `dark:bg-[#101224]`,
       ]"
     >
       <WQAvatar :size="50" v-motion="leftMontionConfig()" />
       <Menu></Menu>
+
+      <MusicPlayer></MusicPlayer>
     </div>
     <div
       :class="[
