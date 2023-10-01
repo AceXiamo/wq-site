@@ -10,7 +10,7 @@
         width: musicStore.current.progress + '%',
       }"
     ></div>
-    <Cover class="relative z-10" :url="musicStore.current.pid"></Cover>
+    <Cover class="relative z-10" :url="`https://image.qwq.link/images/2023/08/30/WechatIMG146.png`"></Cover>
     <div class="flex flex-col gap-[5px] ml-[10px] relative z-10">
       <div class="text-[13px] font-bold truncate w-[95px] overflow-hidden">
         {{ musicStore.current.title }}

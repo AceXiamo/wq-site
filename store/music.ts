@@ -16,17 +16,20 @@ export const useMusicStore = defineStore("musics", () => {
     current.value!.duration = duration - currentTime;
 
     if (duration > 0 && current.value!.duration <= 0) {
-      let next;
-      if (playStatus.value === "repeat") {
-        let index = musics.value.indexOf(current.value!);
-        next = musics.value[index + 1] || musics.value[0];
-      } else if (playStatus.value === "shuffle") {
-        let index = Math.floor(Math.random() * musics.value.length);
-        next = musics.value[index];
-      } else {
-        next = current.value;
-      }
-      play(next!);
+      play(getNext()!);
+    }
+  };
+
+  const getNext = () => {
+    let next;
+    if (playStatus.value === "repeat") {
+      let index = musics.value.indexOf(current.value!);
+      next = musics.value[index + 1] || musics.value[0];
+    } else if (playStatus.value === "shuffle") {
+      let index = Math.floor(Math.random() * musics.value.length);
+      next = musics.value[index];
+    } else {
+      next = current.value;
     }
   };
 
@@ -67,6 +70,6 @@ export const useMusicStore = defineStore("musics", () => {
     play,
     player,
     pauseHandle,
-    playStatus
+    playStatus,
   };
 });

@@ -7,10 +7,13 @@
   >
     <div
       :class="[
-        `flex items-center text-[14px] gap-[15px] py-[15px] relative snap-start`,
+        `flex items-center text-[14px] gap-[15px] py-[15px] relative snap-start transition-all duration-150 px-[10px] cursor-pointer`,
+        `dark:hover:bg-blue-900 dark:hover:bg-opacity-10`,
+        `hover:bg-green-800 hover:bg-opacity-10`,
       ]"
       v-for="(item, index) in musicStore.musics"
       :key="index"
+      @click="musicStore.play(item)"
     >
       <div class="flex gap-[20px]">
         <span class="text-[14px] font-bold">{{ item.title }}</span>
@@ -18,25 +21,25 @@
           item.artist && item.artist.join(" & ")
         }}</span>
       </div>
-      <div class="flex flex-col ml-auto h-full items-end">
+      <div class="flex">
         <div
-          class="flex items-end gap-[10px]"
+          class="text-[12px] bg-yellow-600 bg-opacity-20 text-yellow-600 p-[2px_4px] rounded-sm flex items-center gap-[3px]"
+          v-if="scMusics.includes(item.title!)"
+        >
+          <span class="text-[11px]">💰</span>
+          <span>Super Chat</span>
+        </div>
+      </div>
+
+      <div class="ml-auto">
+        <div
+          class="flex"
           v-if="musicStore.current?.title === item.title"
           v-motion="musicLine()"
         >
           <span class="text-gray-500 text-[10px]">{{
             timeFormat(musicStore.current?.duration || 0)
           }}</span>
-        </div>
-        <div class="mt-auto">
-          <UButton
-            size="xs"
-            color="blue"
-            variant="soft"
-            @click="musicStore.play(item)"
-          >
-            <i class="i-heroicons-play-circle" />
-          </UButton>
         </div>
       </div>
 
