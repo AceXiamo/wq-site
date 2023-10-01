@@ -12,40 +12,10 @@
       v-for="(item, index) in musicStore.musics"
       :key="index"
     >
-      <div
-        :class="[`h-full flex-none aspect-[1/1] bg-cover rounded-md relative`]"
-      >
-        <div
-          :class="[
-            `absolute top-0 bottom-0 left-0 right-0 bg-cover rounded-sm`,
-            `border-2 border-gray-300 dark:border-gray-100`,
-          ]"
-          :style="{
-            backgroundImage: `url(${item.pid})`,
-          }"
-        ></div>
-        <div
-          class="absolute top-0 bottom-0 left-0 right-0 bg-black bg-opacity-50 placenc flex justify-center items-center rounded-sm"
-          v-if="musicStore.current?.title === item.title"
-          @click="musicStore.pauseHandle()"
-          v-motion="musicPlay()"
-        >
-          <i
-            class="i-heroicons-play-circle-solid text-[23px] text-white absolute"
-            v-if="musicStore.current?.pause"
-            v-motion="musicPlay()"
-          />
-          <i
-            class="i-heroicons-pause-circle-solid text-[23px] text-white absolute"
-            v-else
-            v-motion="musicPlay()"
-          />
-        </div>
-      </div>
       <div class="flex flex-col h-full">
         <span class="text-[14px] font-bold">{{ item.title }}</span>
         <span class="text-[13px] text-gray-500 mt-auto">{{
-          item.artist![0]
+          item.artist && item.artist.join(" & ")
         }}</span>
       </div>
       <div class="flex flex-col ml-auto h-full items-end">
