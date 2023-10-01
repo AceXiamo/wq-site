@@ -7,8 +7,21 @@
 
 <script setup lang="ts">
 import Wave from "./utils/wave";
+import { useMenuStore } from "~/store/menu";
+
+const router = useRouter();
+const menuStore = useMenuStore();
 
 onMounted(() => {
+  routerHandle();
+  waveHandle();
+});
+
+const routerHandle = () => {
+  menuStore.active = String(router.currentRoute.value.name);
+};
+
+const waveHandle = () => {
   const div = document.createElement("div");
   document.body.appendChild(div);
   div.style.position = "fixed";
@@ -30,5 +43,5 @@ onMounted(() => {
     colors: ["#0ea5e9", "#4f46e5"],
   });
   wave.animate();
-});
+};
 </script>
