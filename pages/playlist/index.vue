@@ -1,18 +1,18 @@
 <template>
   <Head v-motion="rightToLeft()"></Head>
   <div
-    class="flex flex-col min-h-[100px] h-max px-[30px] relative"
+    class="flex flex-col min-h-[100px] h-max px-[30px] relative mt-[10px]"
     id="music-container"
     v-auto-animate
   >
     <div
       :class="[
-        `flex items-center h-[95px] text-[14px] gap-[15px] py-[20px] relative snap-start`,
+        `flex items-center text-[14px] gap-[15px] py-[15px] relative snap-start`,
       ]"
       v-for="(item, index) in musicStore.musics"
       :key="index"
     >
-      <div class="flex flex-col h-full">
+      <div class="flex gap-[20px]">
         <span class="text-[14px] font-bold">{{ item.title }}</span>
         <span class="text-[13px] text-gray-500 mt-auto">{{
           item.artist && item.artist.join(" & ")
