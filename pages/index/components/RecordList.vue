@@ -3,6 +3,7 @@
     class="flex flex-col min-h-[100px] h-max rounded px-[30px]"
     id="list-container"
     v-auto-animate
+    v-motion="rightToLeft()"
   >
     <div
       :class="[
