@@ -4,6 +4,7 @@
     class="flex flex-col min-h-[100px] h-max px-[30px] relative mt-[10px]"
     id="music-container"
     v-auto-animate
+    v-motion="rightToLeft()"
   >
     <div
       :class="[
@@ -66,15 +67,15 @@
 <script lang="ts" setup>
 import Head from "./components/Head.vue";
 import Loading from "~/framework/Loading";
-import { Music } from "~/server/api/music/list.post";
-import Player from "~/utils/player";
 import { useMusicStore } from "~/store/music";
+import { setTitle } from "~/utils/common";
 
 const musicStore = useMusicStore();
 const scMusics = [`爱不会绝迹`];
 
 onMounted(() => {
   if (!musicStore.musics || musicStore.musics.length === 0) load();
+  setTitle('歌单')
 });
 
 const load = () => {
