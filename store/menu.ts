@@ -13,7 +13,7 @@ export const useMenuStore = defineStore(
   () => {
     const menus = ref<Menu[]>([
       {
-        value: "record",
+        value: "index",
         icon: "i-heroicons-video-camera",
         title: "小猫的录播",
         url: "/",
@@ -49,7 +49,7 @@ export const useMenuStore = defineStore(
       },
     ]);
 
-    const active = ref<string>("record");
+    const active = ref<string>("index");
 
     return {
       menus,
