@@ -19,6 +19,8 @@
 </template>
 
 <script lang="ts" setup>
+import { MusicStatus, MUSIC_STATUS } from "~/store/music";
+
 const props = withDefaults(
   defineProps<{
     status: MusicStatus;

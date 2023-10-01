@@ -26,13 +26,13 @@
         ></div>
         <div
           class="absolute top-0 bottom-0 left-0 right-0 bg-black bg-opacity-50 placenc flex justify-center items-center rounded-sm"
-          v-if="musicStore.current === item"
-          @click="statusHandle(item)"
+          v-if="musicStore.current?.title === item.title"
+          @click="musicStore.pauseHandle()"
           v-motion="musicPlay()"
         >
           <i
             class="i-heroicons-play-circle-solid text-[23px] text-white absolute"
-            v-if="musicStore.current.pause"
+            v-if="musicStore.current?.pause"
             v-motion="musicPlay()"
           />
           <i
@@ -51,11 +51,11 @@
       <div class="flex flex-col ml-auto h-full items-end">
         <div
           class="flex items-end gap-[10px]"
-          v-if="musicStore.current === item"
+          v-if="musicStore.current?.title === item.title"
           v-motion="musicLine()"
         >
           <span class="text-gray-500 text-[10px]">{{
-            timeFormat(musicStore.current.duration || 0)
+            timeFormat(musicStore.current?.duration || 0)
           }}</span>
         </div>
         <div class="mt-auto">
@@ -76,8 +76,8 @@
         ></div>
         <div
           class="bg-green-500 absolute left-0 h-full flex items-center transition-all duration-10"
-          :style="{ width: `${musicStore.current.progress}%` }"
-          v-if="musicStore.current === item"
+          :style="{ width: `${musicStore.current?.progress}%` }"
+          v-if="musicStore.current?.title === item.title"
           v-motion="musicLine()"
         >
           <div
@@ -98,9 +98,10 @@ import Player from "~/utils/player";
 import { useMusicStore } from "~/store/music";
 
 const musicStore = useMusicStore();
+const scMusics = [`爱不会绝迹`];
 
 onMounted(() => {
-  load();
+  if (!musicStore.musics || musicStore.musics.length === 0) load();
 });
 
 const load = () => {
@@ -125,8 +126,7 @@ const timeFormat = (duration: number) => {
   return `${min < 10 ? "0" + min : min}:${sec < 10 ? "0" + sec : sec}`;
 };
 
-onBeforeRouteLeave(() => {
-});
+onBeforeRouteLeave(() => {});
 </script>
 
 <style lang="less" scoped>

@@ -1,7 +1,7 @@
 <template>
   <div class="flex gap-[5px] items-center">
     <i class="i-heroicons-arrow-left-circle-solid text-[20px]" @click="last" />
-    <div class="relative h-[30px] w-[30px]" @click="changePlayStatus">
+    <div class="relative h-[30px] w-[30px]" @click="musicStore.pauseHandle()">
       <i
         v-if="!musicStore.current?.pause"
         class="i-heroicons-pause-circle-20-solid text-[30px] absolute top-0"
@@ -19,14 +19,6 @@
 import { useMusicStore } from "~/store/music";
 
 const musicStore = useMusicStore();
-
-const changePlayStatus = () => {
-  if (musicStore.current?.pause) {
-    musicStore.player?.play();
-  } else {
-    musicStore.player?.pause();
-  }
-};
 
 const last = () => {
   let index = musicStore.musics.indexOf(musicStore.current!);
