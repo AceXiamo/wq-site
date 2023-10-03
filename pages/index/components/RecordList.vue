@@ -62,6 +62,7 @@ import { Record } from "~/server/api/cos/records.post";
 import VideoModal from "./VideoModal.vue";
 import { FILE_DOMAIN } from "~/utils/constants";
 import Loading from "~/framework/Loading";
+import dayjs from "dayjs";
 
 const videoModal = ref();
 const items = ref<Record[]>([]);
@@ -70,7 +71,9 @@ onMounted(() => {
   loadData();
 });
 
-const loadData = () => {
+const loadData = (date: string = dayjs().format('YYYY-MM')) => {
+  items.value = []
+
   const loading = Loading.show({
     element: "#list-container",
     hasBg: false,
@@ -78,14 +81,14 @@ const loadData = () => {
   const params: {
     prefix?: string;
   } = {
-    prefix: "[2023-09",
+    prefix: "[" + date,
   };
   useFetch("/api/cos/records", {
     method: "post",
     params,
   })
     .then(res => {
-      items.value = [...items.value, ...(res.data.value?.items || [])];
+      items.value = res.data.value?.items || [];
     })
     .finally(() => {
       loading.close();
@@ -109,5 +112,8 @@ const download = (row: Record) => {
   a.download = url;
   a.click();
 };
+
+defineExpose({
+  loadData,
+});
 </script>
-~/components/Loading ~/framework/Loading
