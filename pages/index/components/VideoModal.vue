@@ -36,7 +36,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
 import mpegts from "mpegts.js";
 import { Record } from "~/server/api/cos/records.post";
 import { FILE_DOMAIN } from "~/utils/constants";
