@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxt/ui",
+    '@nuxt/content'
   ],
   devtools: { enabled: false },
   css: ["~/assets/css/main.css"],
