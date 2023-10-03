@@ -103,7 +103,7 @@ const timeFormat = (duration: number) => {
 onBeforeRouteLeave(() => {});
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 .run-dot::after,
 .run-dot::before {
   position: absolute;

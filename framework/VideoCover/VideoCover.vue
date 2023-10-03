@@ -33,7 +33,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 .show-ani {
   animation: show 0.3s linear forwards;
 }
