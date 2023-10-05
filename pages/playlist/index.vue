@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-import Head from "~/pages/playlist/components/Head.vue";
+import Head from "@/pages/playlist/components/Head.vue";
 import Loading from "~/framework/Loading";
 import { useMusicStore } from "~/store/music";
 import { setTitle } from "~/utils/common";

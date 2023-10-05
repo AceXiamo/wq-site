@@ -7,8 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import RecordList from "~/pages/index/components/RecordList.vue";
-import Head from "~/pages/index/components/Head.vue";
+import RecordList from "@/pages/index/components/RecordList.vue";
+import Head from "@/pages/index/components/Head.vue";
 import { setTitle } from "~/utils/common";
 
 const recordList = ref()

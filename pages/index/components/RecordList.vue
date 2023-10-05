@@ -59,7 +59,7 @@
 
 <script lang="ts" setup>
 import { Record } from "~/server/api/cos/records.post";
-import VideoModal from "~/pages/index/components/VideoModal.vue";
+import VideoModal from "@/pages/index/components/VideoModal.vue";
 import { FILE_DOMAIN } from "~/utils/constants";
 import Loading from "~/framework/Loading";
 import dayjs from "dayjs";
