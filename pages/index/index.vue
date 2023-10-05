@@ -1,14 +1,12 @@
 <template>
-  <Head @change="(val: string) => {
+  <IndexHead @change="(val: string) => {
     recordList?.loadData(val)
-  }" v-motion="rightToLeft()"></Head>
+  }" v-motion="rightToLeft()"></IndexHead>
   <RecordList ref="recordList"></RecordList>
   <div class="h-[30px]"></div>
 </template>
 
 <script setup lang="ts">
-import RecordList from "@/pages/index/components/RecordList.vue";
-import Head from "@/pages/index/components/Head.vue";
 import { setTitle } from "~/utils/common";
 
 const recordList = ref()

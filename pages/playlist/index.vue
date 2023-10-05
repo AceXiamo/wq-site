@@ -1,5 +1,11 @@
 <template>
-  <Head v-motion="rightToLeft()"></Head>
+  <div
+    class="gap-[10px] h-[50px] px-[30px] flex items-end"
+    v-motion="rightToLeft()"
+  >
+    <span class="text-[18px]">🎵 Music</span>
+  </div>
+
   <div
     class="flex flex-col min-h-[100px] h-max px-[30px] relative mt-[10px]"
     id="music-container"
@@ -75,7 +81,7 @@ const scMusics = [`爱不会绝迹`];
 
 onMounted(() => {
   if (!musicStore.musics || musicStore.musics.length === 0) load();
-  setTitle('歌单')
+  setTitle("歌单");
 });
 
 const load = () => {
