@@ -127,7 +127,7 @@ const musics = async () => {
 
 const getMusicList = async (): Promise<Music[]> => {
   const response = await fetch(
-    `https://bohecat.com/musicapi?type=list&id=${"9035694603"}&source=tencent`
+    `https://bohecat.com/musicapi?type=list&id=9035694603&source=tencent`
   );
   let res = await response.json();
   res = res.map((item: Music) => {

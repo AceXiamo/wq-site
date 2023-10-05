@@ -70,9 +70,8 @@ onMounted(() => {
   loadData();
 });
 
-const loadData = (date: string = dayjs().format('YYYY-MM')) => {
-  items.value = []
-
+const loadData = (date: string = dayjs().format("YYYY-MM")) => {
+  items.value = [];
   const loading = Loading.show({
     element: "#list-container",
     hasBg: false,
@@ -85,13 +84,12 @@ const loadData = (date: string = dayjs().format('YYYY-MM')) => {
   useFetch("/api/cos/records", {
     method: "post",
     params,
-  })
-    .then(res => {
-      items.value = res.data.value?.items || [];
-    })
-    .finally(() => {
+  }).then(res => {
+    setTimeout(() => {
       loading.close();
-    });
+      items.value = res.data.value?.items || [];
+    }, 500);
+  });
 };
 
 const byte2GB = (byte: number) => {
