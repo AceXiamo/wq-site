@@ -86,8 +86,8 @@ const loadData = (date: string = dayjs().format("YYYY-MM")) => {
     params,
   }).then(res => {
     setTimeout(() => {
-      loading.close();
       items.value = res.data.value?.items || [];
+      loading.close();
     }, 500);
   });
 };
