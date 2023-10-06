@@ -14,7 +14,7 @@
     </div>
     <div
       :class="[
-        `w-[700px] h-max my-[100px] rounded-r-lg rounded-bl-lg bg-[#F6FAF8] flex flex-col`,
+        `w-[700px] h-max my-[100px] rounded-r-lg bg-[#F6FAF8] flex flex-col`,
         `dark:bg-[#161829]`,
         `sticky top-0`,
       ]"
