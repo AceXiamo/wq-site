@@ -1,6 +1,5 @@
-const api = `https://me.axm.moe/music`;
-const songlist = `${api}/v1/qq/playlist/info?pid=9035694603`;
-const regex = /&id=([^&]+)/;
+const api = `https://test.xiamoqwq.com/kugou/playlist/track/all`;
+const imagePrefix = `https://imgessl.kugou.com/stdmusic`;
 
 export type Music = {
   artist?: string[];
@@ -15,17 +14,38 @@ export type Music = {
   duration?: number;
 };
 
-type SongItem = {
-  mid?: string;
-  name?: string;
-  singer?: Singer[];
+type KuGouResponse = {
+  data: KuGouRespData;
+  status: number;
+  error_code: number;
 };
 
-type Singer = {
-  id?: string;
-  mid?: string;
-  name?: string;
+type KuGouRespData = {
+  pagesize: number;
+  count: number;
+  info: SongListItem[];
+  page: number;
+  listid: number;
 };
+
+type SongListItem = {
+  hash: string;
+  // like `${歌手}、${歌手} - ${歌曲名}` , split by ` - `
+  name: string;
+  album_id: string;
+  remark: string;
+  // http://imge.kugou.com/stdmusic/{size}/20150718/20150718085819902925.jpg , split by `{size}`
+  cover: string;
+  relate_goods: RelateGoods[]
+};
+
+type RelateGoods = {
+  size: number,
+  hash: string,
+  level: number,
+  privilege: number,
+  bitrate: number,
+}
 
 const musicInCache = new Map<string, Music>();
 
@@ -102,22 +122,17 @@ const songArr = [
 ];
 
 const musics = async () => {
-  const response = await fetch(songlist);
-  let res = await response.json();
-  let songs: SongItem[] = res.cdlist[0].songlist;
+  const response = await fetch(`${api}?id=${process.env.MUSIC_LIST_ID || ""}&page=1&pagesize=300`);
+  let res: KuGouResponse = await response.json();
+  let songs: SongListItem[] = res.data.info;
   let musicList: Music[] = [];
-  musicList = songs.map((item: SongItem) => {
-    let singer = "";
-    if (item.singer) {
-      item.singer.forEach((sgr: Singer) => {
-        singer += sgr.name + " & ";
-      });
-      singer = singer.slice(0, -3);
-    }
+  musicList = songs.map((item: SongListItem) => {
+    let arr: string[] = item.name.split(' - ');
     return {
-      mid: `/api/music/file?mid=${item.mid}`,
-      title: item.name,
-      artist: [singer],
+      mid: `/api/music/file?mid=${item.hash}`,
+      pid: imagePrefix + item.cover.split(`{size}`)[1],
+      title: arr[1],
+      artist: arr[0].split('、'),
       source: "qq",
     };
   });
@@ -125,28 +140,15 @@ const musics = async () => {
   return musicList;
 };
 
-const getMusicList = async (): Promise<Music[]> => {
-  const response = await fetch(
-    `https://bohecat.com/musicapi?type=list&id=9035694603&source=tencent`
-  );
-  let res = await response.json();
-  res = res.map((item: Music) => {
-    const match = item.mid?.match(regex);
-    const mid = match![1];
-    item.mid = `/api/music/file?mid=${mid}`;
-    return item;
-  });
-  return res;
-};
 export default defineEventHandler(async () => {
   if (!musicInCache || musicInCache.size < 1) {
-    const musicList = await getMusicList();
-    songArr.forEach((item) => {
-      let music = musicList.find((music) => music.title === item);
+    const musicList = await musics();
+    songArr.forEach(item => {
+      let music = musicList.find(music => music.title === item);
       if (music) {
         musicInCache.set(item, music);
       }
-    })
+    });
   }
   return Array.from(musicInCache.values());
 });
