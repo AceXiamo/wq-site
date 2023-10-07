@@ -8,6 +8,7 @@
 <script setup lang="ts">
 import Wave from "./utils/wave";
 import { useMenuStore } from "~/store/menu";
+import SiteIcon from "~/utils/site_icon";
 
 const router = useRouter();
 const menuStore = useMenuStore();
@@ -15,6 +16,7 @@ const menuStore = useMenuStore();
 onMounted(() => {
   routerHandle();
   waveHandle();
+  SiteIcon.init()
 });
 
 const routerHandle = () => {
