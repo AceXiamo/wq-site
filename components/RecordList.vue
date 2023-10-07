@@ -7,7 +7,7 @@
   >
     <div
       :class="[
-        `flex items-center h-[110px] text-[14px] gap-[10px] border-b border-b-gray-100 py-[20px] relative snap-start`,
+        `group flex items-center h-[110px] text-[14px] gap-[10px] border-b border-b-gray-100 py-[20px] relative snap-start`,
         `dark:border-b-gray-800`,
         `before:content-[''] before:absolute before:bottom-0 before:h-[1px] before:left-0 before:w-0 before:bg-green-500`,
         `before:transition-all before:duration-500`,
@@ -21,9 +21,11 @@
           `h-full flex-none aspect-[500/281.25] bg-cover rounded-md relative`,
           `opacity-100 rounded-sm`,
           `border-2 border-gray-300 dark:border-gray-100`,
+          `blur-[3px] scale-[.95] !transition-all !duration-[.4s]`,
+          `group-hover:blur-0 group-hover:scale-100 group-hover:shadow-lg group-hover:dark:shadow-[#FFFFFF50]`
         ]"
         :style="{
-          backgroundImage: `url(https://image.qwq.link/images/2023/08/15/twitter_8528co28_20230814-111456_1691045735935180800_photo.jpg)`,
+          backgroundImage: `url(${CoverImage})`,
         }"
       ></div>
 
@@ -62,6 +64,7 @@ import { Record } from "~/server/api/cos/records.post";
 import { FILE_DOMAIN } from "~/utils/constants";
 import Loading from "~/framework/Loading";
 import dayjs from "dayjs";
+import CoverImage from '~/assets/images/cover.jpg'
 
 const videoModal = ref();
 const items = ref<Record[]>([]);
