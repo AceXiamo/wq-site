@@ -5,7 +5,6 @@
   >
     <span class="text-[18px]">🎵 Music</span>
   </div>
-
   <div
     class="flex flex-col min-h-[100px] h-max px-[30px] relative mt-[10px]"
     id="music-container"
@@ -71,10 +70,11 @@
 </template>
 
 <script lang="ts" setup>
-import Head from "@/pages/playlist/components/Head.vue";
 import Loading from "~/framework/Loading";
 import { useMusicStore } from "~/store/music";
 import { setTitle } from "~/utils/common";
+import Request from "~/utils/request";
+import { Music } from "~/server/api/music/list.post";
 
 const musicStore = useMusicStore();
 const scMusics = [`爱不会绝迹`];
@@ -89,15 +89,13 @@ const load = () => {
     element: "#music-container",
     hasBg: false,
   });
-  useFetch("/api/music/list", {
-    method: "post",
-  })
-    .then(res => {
-      musicStore.musics = res.data.value || [];
-    })
-    .finally(() => {
-      loading.close();
-    });
+  Request.post({
+    url: "/api/music/list",
+  }).then((res: Music[]) => {
+    musicStore.musics = res || [];
+  }).finally(() => {
+    loading.close();
+  });
 };
 
 const timeFormat = (duration: number) => {
