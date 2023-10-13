@@ -4,26 +4,39 @@
     v-motion="rightToLeft()"
   >
     <div
-      class="w-[25px] h-[25px] rounded-md bg-emerald-500 grid place-content-center"
+      :class="[
+        `w-[25px] h-[25px] rounded-md bg-emerald-500 grid place-content-center`,
+        `dark:bg-blue-700`,
+      ]"
     >
       <i class="i-heroicons-rectangle-group text-[14px] text-white" />
     </div>
 
     <div
-      class="px-[5px] h-[25px] rounded-md bg-emerald-500 bg-opacity-10 grid place-content-center cursor-default"
+      :class="[
+        `px-[5px] h-[25px] rounded-md bg-emerald-500 bg-opacity-10 grid place-content-center cursor-default`,
+        `dark:bg-blue-700 dark:bg-opacity-30`,
+      ]"
     >
-      <span class="text-[12px] text-emerald-500">{{ year }}</span>
-    </div>
-
-    <div
-      class="w-[25px] h-[25px] rounded-md bg-emerald-500 bg-opacity-10 grid place-content-center cursor-default"
-    >
-      <span class="text-[12px] text-emerald-500">{{ month }}</span>
+      <span class="text-[12px] text-emerald-500 dark:text-blue-700">{{
+        year
+      }}</span>
     </div>
 
     <div
       :class="[
-        `w-[25px] h-[25px] rounded-md bg-emerald-500 grid place-content-center`,
+        `px-[5px] h-[25px] rounded-md bg-emerald-500 bg-opacity-10 grid place-content-center cursor-default`,
+        `dark:bg-blue-700 dark:bg-opacity-30`,
+      ]"
+    >
+      <span class="text-[12px] text-emerald-500 dark:text-blue-700">{{
+        month
+      }}</span>
+    </div>
+
+    <div
+      :class="[
+        `w-[25px] h-[25px] rounded-md bg-emerald-500 dark:bg-blue-700 grid place-content-center`,
         year === lower[0] && month === lower[1]
           ? `grayscale-[1] cursor-no-drop`
           : `hover:bg-opacity-70 cursor-pointer`,
@@ -35,7 +48,7 @@
 
     <div
       :class="[
-        `w-[25px] h-[25px] rounded-md bg-emerald-500 grid place-content-center`,
+        `w-[25px] h-[25px] rounded-md bg-emerald-500 dark:bg-blue-700 grid place-content-center`,
         year === upper[0] && month === upper[1]
           ? `grayscale-[1] cursor-no-drop`
           : `hover:bg-opacity-70 cursor-pointer`,
