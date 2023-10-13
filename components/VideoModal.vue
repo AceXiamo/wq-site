@@ -9,6 +9,7 @@
         base: 'grow',
       },
     }"
+    @close="onClose"
   >
     <UCard :ui="{ divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
       <template #header>
@@ -43,6 +44,7 @@ import { FILE_DOMAIN } from "~/utils/constants";
 const modalShow = ref<boolean>(false);
 const title = ref<string>("");
 const begin = ref<string>("");
+let player: any = null;
 
 const show = (row: Record) => {
   modalShow.value = true;
@@ -52,11 +54,10 @@ const show = (row: Record) => {
   nextTick(() => {
     if (mpegts.getFeatureList().mseLivePlayback) {
       let videoElement: any = document.querySelector("#videoElement");
-      let player = mpegts.createPlayer({
+      player = mpegts.createPlayer({
         type: "flv", // could also be mpegts, m2ts, flv
         isLive: false,
         url: FILE_DOMAIN + row.key!,
-        // url: `http://localhost:8080/file/out.flv`
       });
 
       player.attachMediaElement(videoElement);
@@ -65,6 +66,10 @@ const show = (row: Record) => {
     }
   });
 };
+
+const onClose = () => {
+  player.destroy();
+}
 
 defineExpose({
   show,
