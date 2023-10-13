@@ -21,8 +21,8 @@
           `h-full flex-none aspect-[500/281.25] bg-cover rounded-md relative`,
           `opacity-100 rounded-sm`,
           `border-2 border-gray-300 dark:border-gray-100`,
-          `blur-[3px] scale-[.95] !transition-all !duration-[.4s]`,
-          `group-hover:blur-0 group-hover:scale-100 group-hover:shadow-lg group-hover:dark:shadow-[#FFFFFF50]`
+          `scale-[.95] !transition-all !duration-[.4s]`,
+          `group-hover:scale-[1] group-hover:shadow-lg group-hover:dark:shadow-[#FFFFFF50]`,
         ]"
         :style="{
           backgroundImage: `url(${CoverImage})`,
@@ -60,11 +60,12 @@
 </template>
 
 <script lang="ts" setup>
-import { Record } from "~/server/api/cos/records.post";
+import { Record, RecordRes } from "~/server/api/cos/records.post";
 import { FILE_DOMAIN } from "~/utils/constants";
 import Loading from "~/framework/Loading";
 import dayjs from "dayjs";
-import CoverImage from '~/assets/images/cover.jpg'
+import CoverImage from "~/assets/images/cover.jpg";
+import Request from "~/utils/request";
 
 const videoModal = ref();
 const items = ref<Record[]>([]);
@@ -84,12 +85,12 @@ const loadData = (date: string = dayjs().format("YYYY-MM")) => {
   } = {
     prefix: "[" + date,
   };
-  useFetch("/api/cos/records", {
-    method: "post",
-    params,
-  }).then(res => {
+  Request.post({
+    url: "/api/cos/records",
+    query: params,
+  }).then((res: RecordRes) => {
     setTimeout(() => {
-      items.value = res.data.value?.items || [];
+      items.value = res.items || [];
       loading.close();
     }, 500);
   });
