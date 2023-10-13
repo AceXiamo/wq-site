@@ -41,6 +41,13 @@ export const useMenuStore = defineStore(
         delay: 500,
       },
       {
+        value: "about",
+        icon: "i-heroicons-puzzle-piece-solid",
+        title: "About",
+        url: "/about",
+        delay: 600,
+      },
+      {
         value: "more",
         icon: "i-heroicons-sun-20-solid",
         title: "More",
