@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
-    <RouterView></RouterView>
+    <RouterView />
   </NuxtLayout>
   <UNotifications />
 </template>
@@ -16,7 +16,7 @@ const menuStore = useMenuStore();
 onMounted(() => {
   routerHandle();
   waveHandle();
-  SiteIcon.init()
+  SiteIcon.init();
 });
 
 const routerHandle = () => {
