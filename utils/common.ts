@@ -1,6 +1,6 @@
 // dynamic title change
 export const setTitle = (title: string) => {
-  document.title = `✨ 小猫 の ${title}`;
+  document.title = `${title}`;
 };
 
 // dynamic icon change

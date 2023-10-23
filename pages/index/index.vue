@@ -81,6 +81,6 @@ const clickHandle = (num: number) => {
 };
 
 onMounted(() => {
-  setTitle("录播");
+  setTitle("✨ 小猫 の 录播");
 });
 </script>

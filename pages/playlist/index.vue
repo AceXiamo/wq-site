@@ -77,11 +77,11 @@ import Request from "~/utils/request";
 import { Music } from "~/server/api/music/list.post";
 
 const musicStore = useMusicStore();
-const scMusics = [`爱不会绝迹`];
+const scMusics = [`爱不会绝迹`, `左手指月`];
 
 onMounted(() => {
   if (!musicStore.musics || musicStore.musics.length === 0) load();
-  setTitle("歌单");
+  setTitle("✨ 小猫 の 歌单");
 });
 
 const load = () => {
