@@ -43,7 +43,7 @@ export const useMenuStore = defineStore(
       {
         value: "about",
         icon: "i-heroicons-puzzle-piece-solid",
-        title: "About",
+        title: "关于本站",
         url: "/about",
         delay: 600,
       },
@@ -52,7 +52,7 @@ export const useMenuStore = defineStore(
         icon: "i-heroicons-sun-20-solid",
         title: "More",
         url: "dev",
-        delay: 600,
+        delay: 700,
       },
     ]);
 
@@ -62,10 +62,5 @@ export const useMenuStore = defineStore(
       menus,
       active,
     };
-  },
-  {
-    persist: {
-      key: "menu",
-    },
   }
 );
