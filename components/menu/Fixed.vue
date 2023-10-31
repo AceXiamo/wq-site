@@ -34,7 +34,7 @@
           :class="[
             `relative px-[30px]`,
             menu.active === item.value && `text-emerald-600`,
-            menu.active === item.value && `dark:bg-blue-900 dark:bg-opacity-10 dark:text-blue-700`,
+            menu.active === item.value && `dark:text-blue-700`,
             menu.active === item.value &&
               `after:absolute after:right-0 after:top-0 after:h-full after:w-[2px] after:bg-emerald-500 dark:after:bg-blue-700`,
           ]"
