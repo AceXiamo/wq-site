@@ -14,45 +14,11 @@
 
 <script setup lang="ts">
 import { useMenuStore, Menu } from "@/store/menu";
+import { emojis } from '@/utils/common';
+
 const menu = useMenuStore();
 const router = useRouter();
 const toast = useToast();
-
-const emojis = [
-  "🌱",
-  "🌲",
-  "🌳",
-  "🌴",
-  "🌵",
-  "🌾",
-  "🌿",
-  "🍀",
-  "🍁",
-  "🍂",
-  "🍃",
-  "🌤",
-  "🌥",
-  "🌦",
-  "🌧",
-  "🌨",
-  "🌩",
-  "🌪",
-  "🌫",
-  "🌬",
-  "🌈",
-  "☀️", 
-  "💐",
-  "🌸",
-  "💮",
-  "🏵",
-  "🌹",
-  "🥀",
-  "🌺",
-  "🌻",
-  "🌼",
-];
- 
- 
 
 const menuClick = (item: Menu) => {
   if (item.url.startsWith("http")) {

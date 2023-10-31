@@ -57,10 +57,12 @@ export const useMenuStore = defineStore(
     ]);
 
     const active = ref<string>("index");
+    const fixedOpen = ref<boolean>(false);
 
     return {
       menus,
       active,
+      fixedOpen
     };
   }
 );

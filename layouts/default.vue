@@ -1,4 +1,5 @@
 <template>
+  <TopBar />
   <div class="relative h-screen overflow-auto flex justify-center">
     <div
       :class="[
@@ -23,7 +24,7 @@
     >
       <slot />
     </div>
-    <div :class="[`w-max h-max sticky top-[10px] mt-[100px] ml-[10px]`, `lg:hidden`]">
+    <div :class="[`w-max h-max sticky top-[10px] mt-[100px] ml-[10px]`, `lg:hidden`]" v-auto-animate>
       <ColorMode></ColorMode>
     </div>
   </div>
