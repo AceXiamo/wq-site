@@ -11,7 +11,6 @@
     >
       <i class="i-heroicons-rectangle-group text-[14px] text-white" />
     </div>
-
     <div
       :class="[
         `px-[5px] h-[25px] rounded-md bg-emerald-500 bg-opacity-10 grid place-content-center cursor-default`,
@@ -22,7 +21,6 @@
         year
       }}</span>
     </div>
-
     <div
       :class="[
         `px-[5px] h-[25px] rounded-md bg-emerald-500 bg-opacity-10 grid place-content-center cursor-default`,

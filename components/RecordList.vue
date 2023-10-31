@@ -12,6 +12,7 @@
         `before:content-[''] before:absolute before:bottom-0 before:h-[1px] before:left-0 before:w-0 before:bg-green-500`,
         `before:transition-all before:duration-500`,
         `hover:before:w-[100%]`,
+        `lg:h-[95px]`
       ]"
       v-for="(item, index) in items"
       :key="index"
@@ -29,15 +30,15 @@
         }"
       ></div>
 
-      <div class="flex flex-col gap-[5px]">
-        <span>🎥【 {{ item.title }} 】</span>
+      <div class="flex flex-col gap-[5px] flex-auto w-0">
+        <span class="lg:text-[12px] truncate overflow-hidden">🎥【 {{ item.title }} 】</span>
         <div class="flex gap-[10px]">
-          <span class="text-gray-400 text-[11px]">Time:</span>
-          <span class="text-gray-400 text-[11px]">{{ item.begin }}</span>
+          <span class="text-gray-400 text-[11px] lg:text-[10px]">Time:</span>
+          <span class="text-gray-400 text-[11px] truncate overflow-hidden lg:text-[10px]">{{ item.begin }}</span>
         </div>
         <div class="flex gap-[10px]">
-          <span class="text-gray-400 text-[11px]">Size:</span>
-          <span class="text-gray-400 text-[11px]">{{
+          <span class="text-gray-400 text-[11px] lg:text-[10px]">Size:</span>
+          <span class="text-gray-400 text-[11px] truncate overflow-hidden lg:text-[10px]">{{
             byte2GB(item.size!)
           }}</span>
         </div>
