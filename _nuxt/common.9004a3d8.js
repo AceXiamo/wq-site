@@ -1,1 +1,0 @@
-const n=(t,i)=>{const{url:c,query:r,body:s}=t;let e="";r&&(e=Object.keys(r).map(u=>`${u}=${r[u]}`).join("&"),e=`?${e}`);let o={method:i};return s&&(o={...o,headers:{"Content-Type":"application/json"},body:JSON.stringify(s)}),$fetch(`${c}${e}`,o)},p={get:t=>n(t,"GET"),post:t=>n(t,"POST"),put:t=>n(t,"PUT"),delete:t=>n(t,"DELETE")},d=t=>{document.title=`${t}`};export{p as R,d as s};

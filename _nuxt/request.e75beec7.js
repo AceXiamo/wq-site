@@ -1,0 +1,1 @@
+const r=(t,i)=>{const{url:p,query:n,body:s}=t;let e="";n&&(e=Object.keys(n).map(u=>`${u}=${n[u]}`).join("&"),e=`?${e}`);let o={method:i};return s&&(o={...o,headers:{"Content-Type":"application/json"},body:JSON.stringify(s)}),$fetch(`${p}${e}`,o)},c={get:t=>r(t,"GET"),post:t=>r(t,"POST"),put:t=>r(t,"PUT"),delete:t=>r(t,"DELETE")};export{c as R};
