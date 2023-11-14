@@ -69,7 +69,7 @@ const menuClick = (item: Menu) => {
       description: `待定喵. ${emojis[Math.floor(Math.random() * emojis.length)]}`,
     });
   } else {
-    close()
+    close();
     menu.active = item.value;
     router.push(item.url);
   }
