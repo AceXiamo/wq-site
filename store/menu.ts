@@ -40,13 +40,13 @@ export const useMenuStore = defineStore(
         url: "https://live.bilibili.com/25081972",
         delay: 500,
       },
-      {
-        value: "about",
-        icon: "i-heroicons-puzzle-piece-solid",
-        title: "关于本站",
-        url: "/about",
-        delay: 600,
-      },
+      // {
+      //   value: "about",
+      //   icon: "i-heroicons-puzzle-piece-solid",
+      //   title: "关于本站",
+      //   url: "/about",
+      //   delay: 600,
+      // },
       {
         value: "more",
         icon: "i-heroicons-sun-20-solid",
