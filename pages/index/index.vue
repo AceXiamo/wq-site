@@ -52,7 +52,7 @@ import dayjs from 'dayjs';
 
 const recordList = ref();
 const now = dayjs(),
-  lower = [now.format('YYYY'), now.subtract(1, 'month').format('MM')],
+  lower = [now.subtract(1, 'month').format('YYYY'), now.subtract(1, 'month').format('MM')],
   upper = [now.format('YYYY'), now.format('MM')];
 const year = ref<string>(now.format('YYYY'));
 const month = ref<string>(now.format('MM'));
