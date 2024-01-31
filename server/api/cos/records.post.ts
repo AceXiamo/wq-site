@@ -1,13 +1,13 @@
-import { GetBucketParams, GetBucketResult } from "cos-nodejs-sdk-v5";
-import getCos from "~/server/cos";
+import { GetBucketParams, GetBucketResult } from 'cos-nodejs-sdk-v5';
+import getCos from '~/server/cos';
 
 const getFiles = (next?: string): Promise<GetBucketResult> => {
   return new Promise(resolve => {
     const opts: GetBucketParams = {
-      Bucket: process.env.COS_BUCKET || "",
-      Region: process.env.COS_REGION || "",
-      Prefix: "wq/live/",
-      Delimiter: "/",
+      Bucket: process.env.COS_BUCKET || '',
+      Region: process.env.COS_REGION || '',
+      Prefix: 'wq/live/',
+      Delimiter: '/',
       MaxKeys: 10,
     };
     if (next) {
@@ -27,10 +27,10 @@ const getAllFileNum = (): Promise<number> => {
     } else {
       getCos().getBucket(
         {
-          Bucket: process.env.COS_BUCKET || "",
-          Region: process.env.COS_REGION || "",
-          Prefix: "wq/live/",
-          Delimiter: "/",
+          Bucket: process.env.COS_BUCKET || '',
+          Region: process.env.COS_REGION || '',
+          Prefix: 'wq/live/',
+          Delimiter: '/',
           MaxKeys: 1000,
         },
         function (err, data) {
@@ -45,10 +45,10 @@ const getAllFileNum = (): Promise<number> => {
 const getFilesWithPrefix = (prefix?: string): Promise<GetBucketResult> => {
   return new Promise(resolve => {
     const opts: GetBucketParams = {
-      Bucket: process.env.COS_BUCKET || "",
-      Region: process.env.COS_REGION || "",
-      Prefix: "wq/live/" + prefix,
-      Delimiter: "/",
+      Bucket: process.env.COS_BUCKET || '',
+      Region: process.env.COS_REGION || '',
+      Prefix: 'wq/live/' + prefix,
+      Delimiter: '/',
       MaxKeys: 1000,
     };
     getCos().getBucket(opts, function (_, data) {
@@ -83,18 +83,24 @@ export default defineEventHandler(async event => {
       return {
         key: v.Key,
         size: Number(v.Size),
-        begin: "-",
-        title: "-",
+        begin: '-',
+        title: '-',
       };
     }),
   };
   result.items.forEach(item => {
     const match = item.key?.match(regex);
     if (match) {
-      const begin = match[0].replace(/\[|\]/g, "");
-      item.begin = begin.replace(timeReg, "$1-$2-$3 $4:$5:$6");
-      item.title = match[1].replace(/\[|\]/g, "");
+      const begin = match[0].replace(/\[|\]/g, '');
+      item.begin = begin.replace(timeReg, '$1-$2-$3 $4:$5:$6');
+      item.title = match[1].replace(/\[|\]/g, '');
     }
+  });
+  // sorted by time
+  result.items.sort((a, b) => {
+    const timeA = new Date(a.begin || '');
+    const timeB = new Date(b.begin || '');
+    return timeB.getTime() - timeA.getTime();
   });
   return result;
 });
