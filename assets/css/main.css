@@ -30,7 +30,7 @@ a {
 
 @font-face {
   font-family: "AllFont";
-  src: url("https://file.qwq.link/font/zzaw.woff2");
+  src: url("https://file.qwq.link/font/NotoSansSCForSite.woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -53,11 +53,11 @@ a {
 }
 
 *:not([class*="icon"]):not(i) {
-  font-family: "AllFont", "emoji-font";
+  font-family: "AllFont";
 }
 
 .input-mono, .input-mono * {
-  font-family: "InputMono", "emoji-font" !important;
+  font-family: "InputMono" !important;
 }
 
 /* hide scroll */
