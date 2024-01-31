@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
-    <RouterView />
+    <NuxtPage />
   </NuxtLayout>
   <UNotifications />
 </template>
